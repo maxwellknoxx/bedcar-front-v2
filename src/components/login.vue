@@ -50,7 +50,7 @@ export default {
 
   computed: {
     loggingIn() {
-      return this.$store.state.authentication.status.loggingIn;
+      return this.$store.state.authentication.status.loggedIn;
     }
   },
 

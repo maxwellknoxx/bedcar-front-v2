@@ -10,6 +10,7 @@
           <router-link to="/admin" class="nav-item nav-link">Admin</router-link>
           <router-link to="/statistics" class="nav-item nav-link">Statistics</router-link>
           <a @click="logout" class="nav-item nav-link">Logout</a>
+          <a class="nav-item nav-link disabled">{{ messageSpaces }}</a>
         </div>
       </nav>
     </header>
@@ -19,37 +20,36 @@
 </template>
 
 <script>
-import { userService } from "../_services/index";
-import { router, Role } from "../_helpers/index";
+import { userService, spaceService } from "../_services/index";
+import { router } from "../_helpers/index";
 export default {
   name: "app",
 
   data() {
     return {
-      user: ""
+      user: "",
+      emptySpaces: ""
     };
   },
 
   mounted() {
-    this.user = localStorage.getItem("userData");
-    console.log(( JSON.stringify(this.user.data)));
+    this.findAllEmptySpaces();
   },
 
   computed: {
+    messageSpaces() {
+      return (
+        this.emptySpaces +
+        " free " +
+        (this.emptySpaces > 1 ? "spaces" : "space")
+      );
+    },
     alert() {
       return this.$store.state.alert;
     },
 
     loggingIn() {
-      if (localStorage.getItem("isLogged")) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-
-    isAdmin() {
-      return this.user.role.name === Role.Admin;
+      return this.$store.state.authentication.status.loggedIn;
     }
   },
   watch: {
@@ -60,8 +60,15 @@ export default {
   },
 
   methods: {
+    findAllEmptySpaces() {
+      spaceService.findyByStatus(false).then(response => {
+        this.spaces = response;
+        this.emptySpaces = this.spaces.length;
+      });
+    },
+
     logout() {
-      userService.logout();
+      this.$store.dispatch("authentication/logout");
       router.push("/");
     }
   }

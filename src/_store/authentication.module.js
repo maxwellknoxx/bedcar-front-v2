@@ -4,7 +4,7 @@ import { router } from '../_helpers';
 
 const user = JSON.parse(localStorage.getItem('user'));
 const initialState = user
-    ? { status: { loggedIn: true }, user }
+    ? { status: { loggedIn: true, isAdmin: false }, user }
     : { status: {}, user: null };
 
 export const authentication = {
@@ -17,7 +17,6 @@ export const authentication = {
             userService.login(username, password)
                 .then(
                     user => {
-                        
                         commit('loginSuccess', user);
                         router.push('/home');
                     },
@@ -30,6 +29,9 @@ export const authentication = {
         logout({ commit }) {
             userService.logout();
             commit('logout');
+        },
+        checkAdmin({ commit }){
+            commit('admin', true);
         }
     },
     mutations: {
@@ -48,6 +50,9 @@ export const authentication = {
         logout(state) {
             state.status = {};
             state.user = null;
+        },
+        admin(state, boolean) {
+            state.status = { isAdmin: boolean};
         }
     }
 }

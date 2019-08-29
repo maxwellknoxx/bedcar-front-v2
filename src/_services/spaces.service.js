@@ -1,4 +1,5 @@
-import { handleResponse, requestOptions } from '@/_helpers';
+import { requestOptions, handleResponse } from '@/_helpers';
+import { url } from './config'
 
 export const spaceService = {
     findAll,
@@ -6,11 +7,11 @@ export const spaceService = {
 };
 
 function findAll() {
-    return fetch(`${config.apiUrl}/api/v1/space/spaces`, requestOptions.get())
+    return fetch(url + `v1/space/spaces`, requestOptions.get())
         .then(handleResponse);
 }
 
 function findyByStatus(status) {
-    return fetch(`${config.apiUrl}/api/v1/space/spacesBySatus/${status}`, requestOptions.get())
+    return fetch(url + `v1/space/spacesBySatus/${status}`, requestOptions.get())
         .then(handleResponse);
 }

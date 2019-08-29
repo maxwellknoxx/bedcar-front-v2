@@ -1,4 +1,5 @@
-import { handleResponse, requestOptions } from '@/_helpers';
+import { requestOptions, handleResponse } from '@/_helpers';
+import { url } from './config';
 
 export const singleCarService = {
     getPaidValues,
@@ -12,17 +13,17 @@ export const singleCarService = {
 };
 
 function findAll() {
-    return fetch(`${config.apiUrl}/api/v1/checkInOut/checksInOut`, requestOptions.get())
+    return fetch(url + `v1/checkInOut/checksInOut`, requestOptions.get())
         .then(handleResponse);
 }
 
 function findByPlate(plate) {
-    return fetch(`${config.apiUrl}/api/v1/checkInOut/findByPlate/${plate}`, requestOptions.get())
+    return fetch(url + `v1/checkInOut/findByPlate/${plate}`, requestOptions.get())
         .then(handleResponse);
 }
 
 function checkIn(checkin) {
-    return fetch(`${config.apiUrl}/api/v1/checkInOut/checksIn`, requestOptions.post(checkin))
+    return fetch(url + `v1/checkInOut/checksIn`, requestOptions.post(checkin))
         .then(handleResponse)
         .then(response => {
             return response;
@@ -30,7 +31,7 @@ function checkIn(checkin) {
 }
 
 function checkOut(checkout) {
-    return fetch(`${config.apiUrl}/api/v1/checkInOut/checksOut`, requestOptions.post(checkout))
+    return fetch(url + `v1/checkInOut/checksOut`, requestOptions.post(checkout))
         .then(handleResponse)
         .then(response => {
             return response;
@@ -38,7 +39,7 @@ function checkOut(checkout) {
 }
 
 function registerPayment(payment) {
-    return fetch(`${config.apiUrl}/api/v1/checkInOut/payments`, requestOptions.post(payment))
+    return fetch(url + `v1/checkInOut/payments`, requestOptions.post(payment))
         .then(handleResponse)
         .then(response => {
             return response;
@@ -46,7 +47,7 @@ function registerPayment(payment) {
 }
 
 function update(checkInOut) {
-    return fetch(`${config.apiUrl}/api/v1/checkInOut/checksInOut`, requestOptions.put(checkInOut))
+    return fetch(url + `v1/checkInOut/checksInOut`, requestOptions.put(checkInOut))
         .then(handleResponse)
         .then(response => {
             return response;
@@ -54,7 +55,7 @@ function update(checkInOut) {
 }
 
 function count() {
-    return fetch(`${config.apiUrl}/api/v1/checkInOut/totalCheckInOut`, requestOptions.get())
+    return fetch(url + `v1/checkInOut/totalCheckInOut`, requestOptions.get())
         .then(handleResponse)
         .then(response => {
             return response;
@@ -62,9 +63,9 @@ function count() {
 }
 
 function getPaidValues() {
-    return fetch(`${config.apiUrl}/api/v1/checkInOut/paidValues`, requestOptions.get())
-    .then(handleResponse)
-    .then(response => {
-        return response;
-    })
+    return fetch(url + `v1/checkInOut/paidValues`, requestOptions.get())
+        .then(handleResponse)
+        .then(response => {
+            return response;
+        })
 }
