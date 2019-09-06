@@ -140,7 +140,7 @@ export default {
   },
   created() {
     this.findySpacesByStatus();
-    //this.checkAdmin();
+    this.checkAdmin();
   },
 
   computed: {

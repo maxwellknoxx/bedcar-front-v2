@@ -58,7 +58,7 @@
                       <div class="col-auto my-1">
                         <label class="mr-sm-2" for="inlineFormCustomSelect">Role</label>
                         <select
-                          v-model="user.role.id"
+                          v-model="user.roles[0].id"
                           name="role"
                           class="custom-select mr-sm-2"
                           id="inlineFormCustomSelect"
@@ -135,10 +135,10 @@ export default {
         name: "",
         username: "",
         password: "",
-        role: {
+        roles: [{
           id: "",
           name: ""
-        }
+        }]
       },
       userModel: {
         id: "",
@@ -163,10 +163,8 @@ export default {
           this.validateResponse(response);
         });
       } else {
-        //this.updateUser(this.user);
-        this.$log.info(this.user);
+        this.updateUser(this.user);
       }
-      this.text = "";
     },
 
     updateUser(userInformation) {
@@ -219,16 +217,16 @@ export default {
       this.user.id = "";
       this.user.name = "";
       this.user.username = "";
-      this.user.role.id = "";
-      this.user.role.name = "";
+      this.user.roles.id = "";
+      this.user.roles.name = "";
     },
 
     parseModel(userFromDB) {
       this.user.id = userFromDB.id;
       this.user.name = userFromDB.name;
       this.user.username = userFromDB.username;
-      this.user.role.id = this.parseRole(userFromDB.role);
-      this.user.role.name = this.parseRoleName(this.user.role.id);
+      this.user.roles[0].id = this.parseRole(userFromDB.role);
+      this.user.roles[0].name = this.parseRoleName(this.user.roles[0].id);
     },
 
     parseRole(role) {
@@ -239,7 +237,7 @@ export default {
     },
 
     parseRoleName(id) {
-      if (id === "1") {
+      if (id === 1) {
         return "ROLE_ADMIN";
       }
       return "ROLE_USER";

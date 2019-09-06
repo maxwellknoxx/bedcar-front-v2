@@ -30,13 +30,13 @@ export const authentication = {
             userService.logout();
             commit('logout');
         },
-        checkAdmin({ commit }){
-            commit('admin', true);
+        checkAdmin({ commit }) {
+            commit('admin');
         }
     },
     mutations: {
         loginRequest(state, user) {
-            state.status = { loggingIn: true };
+            state.status = { loggedIn: true };
             state.user = user;
         },
         loginSuccess(state, user) {
@@ -51,8 +51,8 @@ export const authentication = {
             state.status = {};
             state.user = null;
         },
-        admin(state, boolean) {
-            state.status = { isAdmin: boolean};
+        admin(state) {
+            state.status = { loggedIn: true , isAdmin: true};
         }
     }
 }
